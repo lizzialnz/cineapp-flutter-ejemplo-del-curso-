@@ -12,6 +12,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Scaffold(
       body: _HomeView(),
+      bottomNavigationBar: CustomBottomNavigation(),
     );
   }
 }
@@ -33,12 +34,14 @@ class _HomeViewState extends ConsumerState<_HomeView> {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
     //watch porque esta pendiente del estado ( el ref se utiliza del riverpod)
     final nowPlayingMovies = ref.watch(nowPlayingMoviesProvider);
-    if (nowPlayingMovies.isEmpty) {
-      return const Center(
+    final slideShowMovie = ref.watch(moviesSlideShowProvider);
+    if (slideShowMovie.isEmpty) {
+      return Center(
           child: CircularProgressIndicator(
-        color: Colors.blue,
+        color: colors.primary,
       ));
     }
 
@@ -47,19 +50,16 @@ class _HomeViewState extends ConsumerState<_HomeView> {
     // el itemBuilder es la funcion que se va a ejecutar por cada elemento
     return Column(
       children: [
-        CustomAppbar(),
-        // Expanded(
-        //   child: ListView.builder(
-        //     itemCount: nowPlayingMovies.length,
-        //     itemBuilder: (context, index) {
-        //       final movie = nowPlayingMovies[index];
-        //       return ListTile(
-        //         title: Text(movie.title),
-        //       );
-        //     },
-        //   ),
-        // )
-        MoviesSlideshow(movies: nowPlayingMovies),
+        const CustomAppbar(),
+        MoviesSlideshow(movies: slideShowMovie),
+        MovieHorizontalListview(
+          movies: nowPlayingMovies,
+          title: 'En Cines',
+          subTitle: 'Lunes 25',
+          // read no watch porque se usa read dentro de las funciones
+          loadNextPage: () =>
+              ref.read(nowPlayingMoviesProvider.notifier).loadNextPage(),
+        )
       ],
     );
   }
