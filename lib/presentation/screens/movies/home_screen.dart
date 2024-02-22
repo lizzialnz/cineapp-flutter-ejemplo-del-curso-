@@ -1,6 +1,6 @@
 import 'package:cineapp_flutter/presentation/providers/providers.dart';
+import 'package:cineapp_flutter/presentation/widget/widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:cineapp_flutter/config/constants/environment.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -33,7 +33,7 @@ class _HomeViewState extends ConsumerState<_HomeView> {
 
   @override
   Widget build(BuildContext context) {
-    //watch porque esta pendiente del estado
+    //watch porque esta pendiente del estado ( el ref se utiliza del riverpod)
     final nowPlayingMovies = ref.watch(nowPlayingMoviesProvider);
     if (nowPlayingMovies.isEmpty) {
       return const Center(
@@ -45,14 +45,22 @@ class _HomeViewState extends ConsumerState<_HomeView> {
     // ListView permite mostrar una lista de elementos
     // el item count es la cantidad de elementos que se van a mostrar
     // el itemBuilder es la funcion que se va a ejecutar por cada elemento
-    return ListView.builder(
-      itemCount: nowPlayingMovies.length,
-      itemBuilder: (context, index) {
-        final movie = nowPlayingMovies[index];
-        return ListTile(
-          title: Text(movie.title),
-        );
-      },
+    return Column(
+      children: [
+        CustomAppbar(),
+        // Expanded(
+        //   child: ListView.builder(
+        //     itemCount: nowPlayingMovies.length,
+        //     itemBuilder: (context, index) {
+        //       final movie = nowPlayingMovies[index];
+        //       return ListTile(
+        //         title: Text(movie.title),
+        //       );
+        //     },
+        //   ),
+        // )
+        MoviesSlideshow(movies: nowPlayingMovies),
+      ],
     );
   }
 }
