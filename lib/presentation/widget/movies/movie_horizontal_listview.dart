@@ -2,6 +2,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:cineapp_flutter/config/helpers/formatter/formatter_numer.dart';
 import 'package:flutter/material.dart';
 import 'package:cineapp_flutter/config/domain/entities/movie.dart';
+import 'package:go_router/go_router.dart';
 
 // se cambia de un steless a un statefull para poder utilizar el scroll infinito
 class MovieHorizontalListview extends StatefulWidget {
@@ -108,7 +109,10 @@ class _Slide extends StatelessWidget {
                       ),
                     );
                   }
-                  return FadeIn(child: child);
+                  return GestureDetector(
+                    onTap: () => context.push('/movie/${movie.id}'),
+                    child: FadeIn(child: child),
+                  );
                 },
               ),
             ),
