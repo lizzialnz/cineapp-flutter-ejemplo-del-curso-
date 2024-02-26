@@ -7,6 +7,7 @@ class CustomBottomNavigation extends StatelessWidget {
   Widget build(BuildContext context) {
     return BottomNavigationBar(
       elevation: 0,
+      onTap: (value) => print(value),
       items: const [
         BottomNavigationBarItem(icon: Icon(Icons.home_max), label: 'Inicio'),
         BottomNavigationBarItem(

@@ -1,4 +1,4 @@
-import 'package:cineapp_flutter/infrestructure/models/moviedb/movie_moviedb.dart';
+import 'package:cineapp_flutter/infrastructure/models/moviedb/movie_moviedb.dart';
 
 class MovieDbResponse {
   final Dates? dates;
