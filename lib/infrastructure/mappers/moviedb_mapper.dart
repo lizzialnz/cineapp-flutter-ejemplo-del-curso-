@@ -1,4 +1,4 @@
-import 'package:cineapp_flutter/config/domain/entities/movie.dart';
+import 'package:cineapp_flutter/domain/entities/movie.dart';
 import 'package:cineapp_flutter/infrastructure/models/moviedb/movie_details.dart';
 import 'package:cineapp_flutter/infrastructure/models/moviedb/movie_moviedb.dart';
 
@@ -17,8 +17,8 @@ class MoviedbMapper {
         popularity: movieDB.popularity,
         posterPath: (movieDB.posterPath != '')
             ? 'https://image.tmdb.org/t/p/w500${movieDB.posterPath}'
-            : 'no-poster',
-        releaseDate: movieDB.releaseDate,
+            : 'https://123movies.ba/no-poster.png',
+        releaseDate: movieDB.releaseDate ?? DateTime.now(),
         title: movieDB.title,
         video: movieDB.video,
         voteAverage: movieDB.voteAverage,
