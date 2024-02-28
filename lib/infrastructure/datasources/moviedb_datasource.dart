@@ -1,8 +1,8 @@
 import 'package:cineapp_flutter/infrastructure/models/moviedb/movie_details.dart';
 import 'package:dio/dio.dart';
 import 'package:cineapp_flutter/config/constants/environment.dart';
-import 'package:cineapp_flutter/config/domain/datasource/movies_datasource.dart';
-import 'package:cineapp_flutter/config/domain/entities/movie.dart';
+import 'package:cineapp_flutter/domain/datasources/movies_datasource.dart';
+import 'package:cineapp_flutter/domain/entities/movie.dart';
 import 'package:cineapp_flutter/infrastructure/mappers/moviedb_mapper.dart';
 import 'package:cineapp_flutter/infrastructure/models/moviedb/moviedb_response.dart';
 
@@ -65,5 +65,13 @@ class MoviedbDatasource extends MoviesDatasource {
     final Movie movie = MoviedbMapper.movieDetailsToEntity(movieDetails);
 
     return movie;
+  }
+
+  @override
+  Future<List<Movie>> searchMovies(String query) async {
+    if (query.isEmpty) return [];
+    final response =
+        await dio.get('/search/movie', queryParameters: {'query': query});
+    return _jsonToMovies(response.data);
   }
 }

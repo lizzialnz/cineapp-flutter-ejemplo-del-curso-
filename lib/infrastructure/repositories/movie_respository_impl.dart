@@ -1,7 +1,7 @@
 // llamar el datasource y de ahi los metodos
-import 'package:cineapp_flutter/config/domain/datasource/movies_datasource.dart';
-import 'package:cineapp_flutter/config/domain/entities/movie.dart';
-import 'package:cineapp_flutter/config/domain/repositories/movies_repositories.dart';
+import 'package:cineapp_flutter/domain/datasources/movies_datasource.dart';
+import 'package:cineapp_flutter/domain/entities/movie.dart';
+import 'package:cineapp_flutter/domain/repositories/movies_repositories.dart';
 
 class MovieRespositoryImpl extends MovieRepository {
   final MoviesDatasource datasource;
@@ -30,5 +30,10 @@ class MovieRespositoryImpl extends MovieRepository {
   @override
   Future<Movie> getMovieById(String id) {
     return datasource.getMovieById(id);
+  }
+
+  @override
+  Future<List<Movie>> searchMovies(String query) {
+    return datasource.searchMovies(query);
   }
 }
